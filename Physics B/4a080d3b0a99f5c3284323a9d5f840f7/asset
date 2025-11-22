@@ -1,0 +1,20 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PendulumUIController : MonoBehaviour
+{
+    public Slider angleSlider;
+    public Slider lengthSlider;
+    public Pendulum3D pendulum;
+
+    void Start()
+    {
+        angleSlider.onValueChanged.AddListener(UpdateAngle);
+        lengthSlider.onValueChanged.AddListener(UpdateLength);
+    }
+
+    void UpdateAngle(float val) => pendulum.SetAngle(val);
+
+    void UpdateLength(float val) => pendulum.SetLength(val);
+}
+

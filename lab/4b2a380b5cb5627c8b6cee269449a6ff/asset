@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Pendulum3D : MonoBehaviour
+{
+    public float length = 2f; 
+    public float gravity = 9.81f; 
+    public float damping = 0.995f; 
+
+    public float angle = 45f; 
+
+    private float angularVelocity = 0f;
+    private float angularAcceleration = 0f;
+
+    private Transform pivot;
+
+    void Start()
+    {
+        pivot = transform.parent;
+        angle *= Mathf.Deg2Rad; 
+    }
+
+    void FixedUpdate()
+    {
+        angularAcceleration = (-gravity / length) * Mathf.Sin(angle);
+
+        angularVelocity += angularAcceleration * Time.deltaTime;
+        angularVelocity *= damping;
+
+        angle += angularVelocity * Time.deltaTime;
+
+        float angleInDegrees = angle * Mathf.Rad2Deg;
+        transform.localRotation = Quaternion.Euler(0f, 0f, angleInDegrees);
+    }
+}
