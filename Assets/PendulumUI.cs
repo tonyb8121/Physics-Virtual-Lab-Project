@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PendulumUI : MonoBehaviour
 {
@@ -9,18 +10,44 @@ public class PendulumUI : MonoBehaviour
     public Slider lengthSlider;
     public Button playButton;
     public Button stopButton;
+    public Button resetButton;
+
+    public TextMeshProUGUI oscillationsText;
+    public TextMeshProUGUI timerText;
 
     void Start()
     {
-        // Initial setup
         pendulum.Configure(angleSlider.value, lengthSlider.value);
 
-        // Sliders update configuration immediately
         angleSlider.onValueChanged.AddListener(val => pendulum.Configure(val, lengthSlider.value));
         lengthSlider.onValueChanged.AddListener(val => pendulum.Configure(angleSlider.value, val));
 
-        // Buttons
-        playButton.onClick.AddListener(pendulum.Play);
-        stopButton.onClick.AddListener(pendulum.Stop);
+        playButton.onClick.AddListener(() => pendulum.Play());
+        stopButton.onClick.AddListener(() => pendulum.Stop());
+        resetButton.onClick.AddListener(() =>
+        {
+            pendulum.Reset();
+            UpdateUI();
+        });
+
+        UpdateUI();
+    }
+
+    void Update()
+    {
+        if (pendulum.isRunning)
+            UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        if (pendulum == null || oscillationsText == null || timerText == null)
+            return;
+
+        oscillationsText.text = pendulum.oscillationCount.ToString();
+
+        int minutes = Mathf.FloorToInt(pendulum.timer / 60f);
+        int seconds = Mathf.FloorToInt(pendulum.timer % 60f);
+        timerText.text = $"{minutes:00}:{seconds:00}";
     }
 }
