@@ -39,15 +39,17 @@ public class PendulumUI : MonoBehaviour
             UpdateUI();
     }
 
-    void UpdateUI()
-    {
-        if (pendulum == null || oscillationsText == null || timerText == null)
-            return;
+void UpdateUI()
+{
+    if (pendulum == null || oscillationsText == null || timerText == null)
+        return;
 
-        oscillationsText.text = pendulum.oscillationCount.ToString();
+    oscillationsText.text = $"Oscillation Count: {pendulum.oscillationCount}";
 
-        int minutes = Mathf.FloorToInt(pendulum.timer / 60f);
-        int seconds = Mathf.FloorToInt(pendulum.timer % 60f);
-        timerText.text = $"{minutes:00}:{seconds:00}";
-    }
+    int minutes = Mathf.FloorToInt(pendulum.timer / 60f);
+    int seconds = Mathf.FloorToInt(pendulum.timer % 60f);
+
+    timerText.text = $"Time Count: {minutes:00}:{seconds:00}";
+}
+
 }
