@@ -1,0 +1,120 @@
+using UnityEngine;
+
+public class Pendulum3D : MonoBehaviour
+{
+    public float length = 2f;
+    public float gravity = 9.81f;
+    public float damping = 0.995f;
+
+    [Range(-90f, 90f)]
+    public float startAngle = 45f; // Exposed to UI
+
+    private float angle; 
+    private float angularVelocity = 0f;
+    private float angularAcceleration = 0f;
+
+    private Transform pivot;
+
+    private bool isDragging = false;
+
+    void Start()
+    {
+        pivot = transform.parent;
+        angle = startAngle * Mathf.Deg2Rad;
+    }
+
+    void FixedUpdate()
+    {
+        if (isDragging) return;
+
+        angularAcceleration = (-gravity / length) * Mathf.Sin(angle);
+        angularVelocity += angularAcceleration * Time.deltaTime;
+        angularVelocity *= damping;
+        angle += angularVelocity * Time.deltaTime;
+
+        UpdateBobPosition();
+    }
+
+    void UpdateBobPosition()
+    {
+        float angleInDegrees = angle * Mathf.Rad2Deg;
+        transform.localRotation = Quaternion.Euler(0f, 0f, angleInDegrees);
+    }
+
+    public void SetAngle(float newAngleDeg)
+    {
+        angle = newAngleDeg * Mathf.Deg2Rad;
+        angularVelocity = 0f;
+        UpdateBobPosition();
+    }
+
+    public void SetLength(float newLength)
+    {
+        length = newLength;
+        transform.localPosition = new Vector3(0, -length, 0);
+    }
+
+    void Update()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        HandleMouseDrag();
+#elif UNITY_ANDROID || UNITY_IOS
+        HandleTouchDrag();
+#endif
+    }
+
+    void HandleMouseDrag()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (IsTouchingBob(Input.mousePosition))
+                isDragging = true;
+        }
+        else if (Input.GetMouseButton(0) && isDragging)
+        {
+            DragBob(Input.mousePosition);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+            angularVelocity = 0f;
+        }
+    }
+
+    void HandleTouchDrag()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch t = Input.GetTouch(0);
+            Vector3 touchPos = t.position;
+
+            if (t.phase == TouchPhase.Began && IsTouchingBob(touchPos))
+                isDragging = true;
+            else if ((t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary) && isDragging)
+                DragBob(touchPos);
+            else if (t.phase == TouchPhase.Ended)
+            {
+                isDragging = false;
+                angularVelocity = 0f;
+            }
+        }
+    }
+
+    bool IsTouchingBob(Vector3 screenPos)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            return hit.transform == this.transform;
+        }
+        return false;
+    }
+
+    void DragBob(Vector3 screenPos)
+    {
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Vector3.Distance(Camera.main.transform.position, pivot.position)));
+        Vector3 dir = worldPoint - pivot.position;
+        angle = Mathf.Atan2(dir.x, -dir.y); // x-horz, y-upward
+        UpdateBobPosition();
+    }
+}

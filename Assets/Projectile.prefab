@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7200612767261817143}
   - component: {fileID: 7010404174341469986}
   - component: {fileID: 2401360907270393305}
-  - component: {fileID: 76612953947830516}
+  - component: {fileID: 1295245060840193922}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -64,6 +64,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -85,6 +87,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -137,7 +140,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &76612953947830516
+--- !u!114 &1295245060840193922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +149,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5576657919708125208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0e51627fd09f558eae2063b6a9bdb4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 645484b696a449e38a5b0a200632b7ee, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  life: 5
+  m_EditorClassIdentifier: '::'
+  onLanded:
+    m_PersistentCalls:
+      m_Calls: []
+  groundTag: Ground
+  sleepVelocityThreshold: 0.2
+  checkSleepDelay: 0.25
