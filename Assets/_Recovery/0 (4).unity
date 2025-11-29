@@ -2497,7 +2497,7 @@ MonoBehaviour:
   velocityLabel: {fileID: 220051046}
   gravityLabel: {fileID: 227018402}
   useInstantiate: 1
-  projectileAutoDestroy: 10
+  projectileAutoDestroy: 50
 --- !u!1 &820509471
 GameObject:
   m_ObjectHideFlags: 0
@@ -4520,6 +4520,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1539489885}
+  - component: {fileID: 1539489886}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4542,6 +4543,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1539489886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539489883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6e9a30dabb80d96a3a0633f985ea9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  pivot: {fileID: 427064132}
+  barrel: {fileID: 820509472}
+  barrelTip: {fileID: 2047439931}
+  projectilePrefab: {fileID: 5576657919708125208, guid: 5338d06dd020db10faea74ece0cc3518, type: 3}
+  angleSlider: {fileID: 1870583646}
+  velocitySlider: {fileID: 523100713}
+  gravityDropdown: {fileID: 413411208}
+  launchButton: {fileID: 1382945533}
+  angleLabel: {fileID: 1160723474}
+  velocityLabel: {fileID: 220051046}
+  gravityLabel: {fileID: 227018402}
+  useInstantiate: 1
+  projectileAutoDestroy: 50
 --- !u!1 &1565216292
 GameObject:
   m_ObjectHideFlags: 0
@@ -4797,7 +4823,7 @@ MonoBehaviour:
   m_Camera: {fileID: 0}
   m_OriginBaseGameObject: {fileID: 1591204609}
   m_CameraFloorOffsetObject: {fileID: 0}
-  m_RequestedTrackingOriginMode: 2
+  m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 1.1176
 --- !u!114 &1591204614
 MonoBehaviour:
@@ -6066,7 +6092,7 @@ MonoBehaviour:
   m_Camera: {fileID: 1752335510}
   m_OriginBaseGameObject: {fileID: 1936292550}
   m_CameraFloorOffsetObject: {fileID: 1123051573}
-  m_RequestedTrackingOriginMode: 2
+  m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 1.1176
 --- !u!4 &1936292552
 Transform:

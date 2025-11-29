@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class ProjectileBehavior : MonoBehaviour
 {
     public UnityEvent onLanded;            // hook this in the inspector or from code
-    public string groundTag = "Ground";    // tag for ground/collision
+    public string groundTag = "Barrier";    // tag for ground/collision
     public float sleepVelocityThreshold = 0.2f;
     public float checkSleepDelay = 0.25f;
     bool hasLanded = false;

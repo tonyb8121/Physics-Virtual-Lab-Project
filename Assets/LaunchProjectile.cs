@@ -91,7 +91,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     void FireProjectile()
     {
-        Vector3 dir = barrel.transform.right.normalized;
+        Vector3 dir = barrel.transform.up.normalized;
         float speed = velocitySlider.value;
 
         GameObject projGO = Instantiate(projectilePrefab, barrelTip.position, Quaternion.identity);

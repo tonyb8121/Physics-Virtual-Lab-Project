@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1295245060840193922}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Barrier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,6 @@ MonoBehaviour:
   onLanded:
     m_PersistentCalls:
       m_Calls: []
-  groundTag: Ground
+  groundTag: Barrier
   sleepVelocityThreshold: 0.2
   checkSleepDelay: 0.25
