@@ -127,21 +127,12 @@ public class Pendulum3D : MonoBehaviour
         // Optional: keep current angle to display timer/oscillations
     }
 
-public void Reset()
-{
-    isRunning = false;
-    isRunningUI = false;
-
-    timer = 0f;
-    oscillationCount = 0;
-
-    angularVelocity = 0f;
-
-    // Reset pendulum to initial set angle & length
-    angle = configuredAngle * Mathf.Deg2Rad;
-    lastAngle = angle;
-
-    UpdatePendulum();
+    public void Reset()
+    {
+        timer = 0f;
+        oscillationCount = 0;
+        lastAngle = angle;
 }
 
 }
+
