@@ -7,16 +7,25 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Home.unity
-    guid: 186b5731a14cebee19df29dafd69a672
+    guid: b3ec5f575f4c61b41b7a5d001c3f289e
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 912b6778cf598c68688f0f416a2dfb76
+    guid: 1fc016edefe83f54ab90a802104a0447
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: 72fe8b85dfee3be4c9bfc306642b0653
+  - enabled: 1
+    path: Assets/Scenes/AuthScene.unity
+    guid: 540e1cf0277f4f64a8adf69e94390724
+  - enabled: 1
+    path: Assets/Scenes/Projectile.unity
+    guid: 17f68a3f79c45b75088fec309698e932
   - enabled: 1
     path: Assets/Scenes/Pendulum.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Projectile.unity
-    guid: 17f68a3f79c45b75088fec309698e932
+    path: Assets/Scenes/TeacherDashboardScene.unity
+    guid: e6036533dbb1e5c46996ba0c62cc5003
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: f678984b91daa5a508e577a6a856c13d, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 43aabbc27a31aa9848918034ff2b043c, type: 2}

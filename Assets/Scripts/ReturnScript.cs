@@ -7,4 +7,8 @@ public class ReturnScript : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+  public void OpenAuthScene()
+    {
+        SceneManager.LoadScene("AuthScene");
+    }
 }

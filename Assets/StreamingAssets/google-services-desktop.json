@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1008777244310",
+    "project_id": "arphysicslab-89571",
+    "storage_bucket": "arphysicslab-89571.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008777244310:android:d61177b602888e21491cb7",
+        "android_client_info": {
+          "package_name": "com.originphysics.arphysicslab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArQ-7XENCqnhEMRLF0HivvPEUmjI8dvF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

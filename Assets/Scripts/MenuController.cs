@@ -10,6 +10,10 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("Projectile");
     }
+    public void BackHome(){
+        SceneManager.LoadScene("Home");
+           }
+
     public void QuitGame()
     {
         Application.Quit();
