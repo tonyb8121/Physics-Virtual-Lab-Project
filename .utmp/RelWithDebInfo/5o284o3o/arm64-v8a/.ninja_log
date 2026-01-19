@@ -1,10 +1,19 @@
 # ninja log v5
-56	17820	7869071398132381	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	3e84fa45fa22e692
-97	17954	7869071397977643	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	9b3e4a6d8c0ebc17
-35	18167	7869071401666036	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e6fca0646134689e
-1	18399	7869071403855879	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c2782b926a1337cc
-107	20663	7869071424129900	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e8c46f20e754c2c
-46	21906	7869071437712790	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	149583df13e1570f
-17955	25828	7869071480081398	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	5fc1cdafa910d60e
-17841	26749	7869071489850367	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	67006a06ff8c4564
-26751	27441	7869071497060813	C:/Users/tonyk.DESKTOP-M3UHJGO/Documents/Physics Lab/Physics-Virtual-Lab-Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5o284o3o/obj/arm64-v8a/libgame.so	2fa050c294515241
+6290	67556	7901786688928063	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	3e84fa45fa22e692
+6176	67591	7901786688745524	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	9b3e4a6d8c0ebc17
+71972	78751	7901786800891509	C:/Users/tonyk.DESKTOP-M3UHJGO/Documents/Physics Lab/Physics-Virtual-Lab-Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5o284o3o/obj/arm64-v8a/libgame.so	2fa050c294515241
+188	67645	7901786689674221	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e6fca0646134689e
+67592	71789	7901786731252757	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	67006a06ff8c4564
+6120	67974	7901786693023802	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c2782b926a1337cc
+6304	67698	7901786690303784	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	5fc1cdafa910d60e
+67558	71971	7901786733078231	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e8c46f20e754c2c
+6161	69181	7901786705161860	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	149583df13e1570f
+3815	57837	7901824582622235	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	9b3e4a6d8c0ebc17
+3828	57858	7901824583561988	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	3e84fa45fa22e692
+141	58199	7901824585828849	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	e6fca0646134689e
+4019	58203	7901824587971119	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	5fc1cdafa910d60e
+3802	58444	7901824591084430	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	c2782b926a1337cc
+3789	61696	7901824621703062	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	149583df13e1570f
+57839	70270	7901824709663559	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	e8c46f20e754c2c
+57979	70543	7901824712412254	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	67006a06ff8c4564
+70544	81778	7901824825035156	C:/Users/tonyk.DESKTOP-M3UHJGO/Documents/Physics Lab/Physics-Virtual-Lab-Project/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5o284o3o/obj/arm64-v8a/libgame.so	2fa050c294515241

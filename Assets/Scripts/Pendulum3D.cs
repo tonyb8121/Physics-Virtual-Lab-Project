@@ -29,7 +29,7 @@ public class Pendulum3D : MonoBehaviour
     void Start()
     {
         pivot = transform.parent;      // Pendulum object is a child of the pivot
-        Configure(20f, 2f);            // Default values
+        Configure(20f, 2.5f);            // Default values
         lastAngle = angle;
     }
 
@@ -113,35 +113,55 @@ public class Pendulum3D : MonoBehaviour
         lastAngle = angle;
     }
 
+    /// <summary>
+    /// Starts or resumes the pendulum motion
+    /// </summary>
     public void Play()
     {
         isRunning = true;
         isRunningUI = true;
+        Debug.Log("▶️ Pendulum PLAY - Motion started");
     }
 
+    /// <summary>
+    /// Pauses the pendulum motion (keeps timer and oscillation count)
+    /// </summary>
     public void Stop()
     {
         isRunning = false;
         isRunningUI = false;
-        angularVelocity = 0f;
-        // Optional: keep current angle to display timer/oscillations
+        angularVelocity = 0f; // Stop velocity so it doesn't continue moving
+        Debug.Log("⏸️ Pendulum STOP - Motion paused (Timer: " + timer.ToString("F2") + "s, Oscillations: " + oscillationCount + ")");
     }
 
-public void Reset()
-{
-    isRunning = false;
-    isRunningUI = false;
+    /// <summary>
+    /// Completely resets the pendulum to initial configuration
+    /// - Stops motion
+    /// - Resets timer to 0
+    /// - Resets oscillation count to 0
+    /// - Returns to configured initial angle
+    /// </summary>
+    public void Reset()
+    {
+        // Stop all motion
+        isRunning = false;
+        isRunningUI = false;
 
-    timer = 0f;
-    oscillationCount = 0;
+        // Reset counters to zero
+        timer = 0f;
+        oscillationCount = 0;
 
-    angularVelocity = 0f;
+        // Reset physics
+        angularVelocity = 0f;
+        angularAcceleration = 0f;
 
-    // Reset pendulum to initial set angle & length
-    angle = configuredAngle * Mathf.Deg2Rad;
-    lastAngle = angle;
+        // Return to initial configured angle
+        angle = configuredAngle * Mathf.Deg2Rad;
+        lastAngle = angle;
 
-    UpdatePendulum();
-}
-
+        // Update visual position
+        UpdatePendulum();
+        
+        Debug.Log("🔄 Pendulum RESET - Returned to initial position (Angle: " + configuredAngle + "°, Length: " + configuredLength + "m)");
+    }
 }

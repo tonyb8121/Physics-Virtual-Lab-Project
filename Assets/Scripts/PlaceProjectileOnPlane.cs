@@ -2,16 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.EventSystems;
 
 public class PlaceProjectileOnPlane : MonoBehaviour
 {
     [Header("References")]
-    public GameObject projectilePrefab;       // Prefab of cannon/projectile launcher
-    public ARRaycastManager raycastManager;   // ARRaycastManager
+    public GameObject projectilePrefab;       // Combined prefab (Cannon + Cliff)
+    public ARRaycastManager raycastManager;
 
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    private GameObject spawnedObject;         // Reference to placed projectile prefab
-    private bool isSelected = false;          // Whether user selected the object
+    private GameObject spawnedObject;
+    private bool isSelected = false;
 
     // Manipulation
     private float initialDistance;
@@ -33,16 +34,39 @@ public class PlaceProjectileOnPlane : MonoBehaviour
         HandleManipulation();
     }
 
-    // ----------------------------
-    // 0. SELECT OBJECT BY TOUCH / CLICK
-    // ----------------------------
+    // Helper method to check if touch/mouse is over UI
+    bool IsPointerOverUI(Vector2 screenPosition)
+    {
+        // Check if EventSystem exists
+        if (EventSystem.current == null)
+            return false;
+
+        // Create pointer event data
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPosition;
+
+        // Raycast to check for UI hits
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        // Return true if we hit any UI elements
+        return results.Count > 0;
+    }
+
     void HandleSelection()
     {
         if (spawnedObject == null) return;
 
-        // Phone
+        // Phone - check if touch is over UI first
         if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
+            // Ignore if touching UI
+            if (IsPointerOverUI(Input.GetTouch(0).position))
+            {
+                isSelected = false;
+                return;
+            }
+
             Ray r = cam.ScreenPointToRay(Input.GetTouch(0).position);
             if (Physics.Raycast(r, out RaycastHit hit))
             {
@@ -56,9 +80,16 @@ public class PlaceProjectileOnPlane : MonoBehaviour
             isSelected = false;
         }
 
-        // Mouse
+        // Mouse - check if over UI first
         if (Input.GetMouseButtonDown(0))
         {
+            // Ignore if over UI
+            if (IsPointerOverUI(Input.mousePosition))
+            {
+                isSelected = false;
+                return;
+            }
+
             Ray r = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(r, out RaycastHit hit))
             {
@@ -73,20 +104,23 @@ public class PlaceProjectileOnPlane : MonoBehaviour
         }
     }
 
-    // ----------------------------
-    // 1. PLACE OBJECT (only if not spawned OR not selected)
-    // ----------------------------
     void HandlePlacement()
     {
-        if (isSelected) return;   // prevent moving object by tapping plane
+        if (isSelected) return;
 
-        // Phone tap
+        // Phone tap - ignore if over UI
         if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
-            TryPlaceObject(Input.GetTouch(0).position);
+        {
+            if (!IsPointerOverUI(Input.GetTouch(0).position))
+                TryPlaceObject(Input.GetTouch(0).position);
+        }
 
-        // Mouse click
+        // Mouse click - ignore if over UI
         if (Input.GetMouseButtonDown(0))
-            TryPlaceObject(Input.mousePosition);
+        {
+            if (!IsPointerOverUI(Input.mousePosition))
+                TryPlaceObject(Input.mousePosition);
+        }
     }
 
     void TryPlaceObject(Vector2 screenPos)
@@ -97,37 +131,63 @@ public class PlaceProjectileOnPlane : MonoBehaviour
 
             if (spawnedObject == null)
             {
-                // Spawn the projectile prefab
+                // Spawn the combined prefab
                 spawnedObject = Instantiate(projectilePrefab, hitPose.position, hitPose.rotation);
 
-                // Connect the ProjectileLauncher automatically (optional)
-                ProjectileLauncher launcher = spawnedObject.GetComponentInChildren<ProjectileLauncher>();
-                ProjectileUIBinder binder = Object.FindFirstObjectByType<ProjectileUIBinder>();
-                if (binder != null && launcher != null)
+                // Find the UI Binder
+                ProjectileUIBinder binder = FindFirstObjectByType<ProjectileUIBinder>();
+                
+                if (binder != null)
                 {
-                    binder.BindLauncherAtRuntime(launcher);
-                    Debug.Log("ProjectileLauncher connected to UI binder!");
+                    // Connect Cannon/Launcher
+                    ProjectileLauncher launcher = spawnedObject.GetComponentInChildren<ProjectileLauncher>();
+                    if (launcher != null)
+                    {
+                        binder.BindLauncherAtRuntime(launcher);
+                        Debug.Log("✓ Cannon connected to UI!");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("⚠️ ProjectileLauncher not found in prefab!");
+                    }
+
+                    // Connect Cliff Controller
+                    CliffController cliff = spawnedObject.GetComponentInChildren<CliffController>();
+                    if (cliff != null)
+                    {
+                        binder.BindCliffController(cliff);
+                        Debug.Log("✓ Cliff connected to UI!");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("⚠️ CliffController not found in prefab!");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("⚠️ ProjectileUIBinder not found in scene!");
                 }
             }
             else if (!isSelected)
             {
-                // Move object only if not selected
                 spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             }
         }
     }
 
-    // ----------------------------
-    // 2. MOVE / ROTATE / SCALE — ONLY IF SELECTED
-    // ----------------------------
     void HandleManipulation()
     {
         if (spawnedObject == null || !isSelected) return;
 
-        // --------- PHONE MULTITOUCH ----------
+        // PHONE MULTITOUCH
         if (Input.touchCount == 1)
         {
             Touch t = Input.GetTouch(0);
+            
+            // Ignore if over UI
+            if (IsPointerOverUI(t.position))
+                return;
+            
             if (t.phase == TouchPhase.Moved)
                 MoveObject(t.deltaPosition * 0.0015f);
         }
@@ -136,7 +196,10 @@ public class PlaceProjectileOnPlane : MonoBehaviour
             Touch t0 = Input.GetTouch(0);
             Touch t1 = Input.GetTouch(1);
 
-            // Scale
+            // Ignore if either touch is over UI
+            if (IsPointerOverUI(t0.position) || IsPointerOverUI(t1.position))
+                return;
+
             if (t0.phase == TouchPhase.Began || t1.phase == TouchPhase.Began)
             {
                 initialDistance = Vector2.Distance(t0.position, t1.position);
@@ -148,7 +211,6 @@ public class PlaceProjectileOnPlane : MonoBehaviour
                 float scaleFactor = currDist / initialDistance;
                 spawnedObject.transform.localScale = initialScale * scaleFactor;
 
-                // Rotate based on twist
                 float rotationDelta =
                     Vector2.SignedAngle(t1.position - lastTouchPos1, t1.position - t0.position);
                 spawnedObject.transform.Rotate(Vector3.up, rotationDelta);
@@ -158,7 +220,11 @@ public class PlaceProjectileOnPlane : MonoBehaviour
             lastTouchPos1 = t1.position;
         }
 
-        // --------- MOUSE / PC CONTROLS ----------
+        // MOUSE / PC CONTROLS
+        // Ignore mouse manipulation if over UI
+        if (IsPointerOverUI(Input.mousePosition))
+            return;
+
         if (Input.GetMouseButton(0))
         {
             Vector3 move = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
