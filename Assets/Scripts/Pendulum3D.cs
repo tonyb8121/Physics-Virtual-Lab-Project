@@ -134,34 +134,12 @@ public class Pendulum3D : MonoBehaviour
         Debug.Log("⏸️ Pendulum STOP - Motion paused (Timer: " + timer.ToString("F2") + "s, Oscillations: " + oscillationCount + ")");
     }
 
-    /// <summary>
-    /// Completely resets the pendulum to initial configuration
-    /// - Stops motion
-    /// - Resets timer to 0
-    /// - Resets oscillation count to 0
-    /// - Returns to configured initial angle
-    /// </summary>
     public void Reset()
     {
-        // Stop all motion
-        isRunning = false;
-        isRunningUI = false;
-
-        // Reset counters to zero
         timer = 0f;
         oscillationCount = 0;
-
-        // Reset physics
-        angularVelocity = 0f;
-        angularAcceleration = 0f;
-
-        // Return to initial configured angle
-        angle = configuredAngle * Mathf.Deg2Rad;
         lastAngle = angle;
-
-        // Update visual position
-        UpdatePendulum();
-        
-        Debug.Log("🔄 Pendulum RESET - Returned to initial position (Angle: " + configuredAngle + "°, Length: " + configuredLength + "m)");
-    }
 }
+
+}
+
